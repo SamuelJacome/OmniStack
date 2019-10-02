@@ -1,5 +1,8 @@
 const express = require('express');
+const mongoose = require('mongoose');
 
+
+const routes = require('./routes');
 
 const app = express();
 
@@ -7,9 +10,13 @@ const app = express();
 //yarn add express
 //yarn add nodemon -d (depedencia de desenvovilmento)
 
+mongoose.connect('mongodb+srv://samuel:samuel@omnistack-odsue.mongodb.net/test?retryWrites=true&w=majority', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
 
-app.get('/', (req, res)=>{ //req representa a requisição e res a resposta
-    return res.json({ message: 'Hello Omnistack'}) //send resposta de texto
-});
+app.use(express.json());
 
-app.listen(3333); //Porta
+app.use(routes);
+
+app.listen(3333);
